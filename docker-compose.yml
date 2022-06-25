@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+
+  starlette:
+    build:
+      context: .
+      dockerfile: docker/local/Dockerfile
+    command: /start
+    volumes:
+      - .:/home/myuser/code/
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
