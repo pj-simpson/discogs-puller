@@ -19,7 +19,6 @@ multidict==6.0.2
 openapi-schema-pydantic==1.2.3
 orjson==3.7.3
 packaging==21.3
-pkg_resources==0.0.0
 pluggy==1.0.0
 py==1.11.0
 pydantic==1.9.1
