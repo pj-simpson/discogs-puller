@@ -1,4 +1,4 @@
-name: Python package
+name: discogs puller
 
 on: [push]
 
