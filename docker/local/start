@@ -3,4 +3,22 @@
 set -o errexit
 set -o nounset
 
+# check if we have a bands database file in the app models folder
+# if we do not, create one in the current directory
+DB_FILE=app/models/bands.db
+if test -f "$DB_FILE"; then
+  echo "$DB_FILE exists."
+else
+  python3.9 app/scripts/create_populate_db.py
+  echo "created $DB_FILE"
+fi
+
+# check if we have a bands database file in the current directory
+# if we do , move it to the app's models folder
+DB_FILE_TO_MOVE=bands.db
+if test -f "$DB_FILE_TO_MOVE"; then
+  mv bands.db app/models/bands.db
+fi
+
+# run the ASGI server
 uvicorn app.main:app --reload --host '0.0.0.0'
