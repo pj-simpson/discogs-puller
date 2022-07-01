@@ -114,3 +114,6 @@ media/
 # !**/migrations
 # !**/migrations/__init__.py
 ./idea/**
+
+#Might occasionally need to run this to remove PyCharm stuff
+#git rm --cached -r .idea
