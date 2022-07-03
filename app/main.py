@@ -3,7 +3,7 @@ from .controllers.artists import ArtistController
 from .controllers.releases import ReleasesController
 from .health_check import health_check
 from starlite.template.jinja import JinjaTemplateEngine
-
+import os
 
 app = Starlite(
     route_handlers=[
@@ -11,5 +11,9 @@ app = Starlite(
         ArtistController,
         ReleasesController,
     ],
-    template_config=TemplateConfig(directory='app/templates',engine=JinjaTemplateEngine),
-    debug=True)
+    template_config=TemplateConfig(
+        directory='app/templates',
+        engine=JinjaTemplateEngine
+    ),
+    debug=os.environ.get('DEBUG',False)
+)

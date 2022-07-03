@@ -1,10 +1,17 @@
+from typing import Any
+
 from starlite.controller import Controller
 from starlite.handlers import get
-from starlite import Template
+from starlite import Template,Provide
+
+from ..dal.releases import ReleaseDAL
+
 
 class ReleasesController(Controller):
     path = "/releases"
+    dependencies = {"release_dal": Provide(ReleaseDAL)}
 
     @get(path="/{release_id:int}")
-    async def release_detail(self, release_id: int) -> Template:
+    async def release_detail(self,release_dal:Any, release_id: int) -> Template:
+        await release_dal.get_single_release()
         return Template(name="releases/release_detail.html",context={'release_id':release_id})
