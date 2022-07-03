@@ -1,10 +1,15 @@
-from starlite import Starlite, MediaType
-from .controllers.controllers import ArtistController
-from starlite.handlers import get
+from starlite import Starlite, MediaType,TemplateConfig
+from .controllers.artists import ArtistController
+from .controllers.releases import ReleasesController
+from .health_check import health_check
+from starlite.template.jinja import JinjaTemplateEngine
 
 
-@get(path="/",media_type=MediaType.TEXT)
-def health_check() -> str:
-    return "healthy"
-
-app = Starlite(route_handlers=[health_check,ArtistController],debug=True)
+app = Starlite(
+    route_handlers=[
+        health_check,
+        ArtistController,
+        ReleasesController,
+    ],
+    template_config=TemplateConfig(directory='app/templates',engine=JinjaTemplateEngine),
+    debug=True)

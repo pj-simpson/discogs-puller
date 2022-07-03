@@ -114,7 +114,7 @@ async def create_releases_table():
 
 async def get_artist_release_uri(band_details: int) -> str:
     """
-    Fetches an artist's release URI from our SQLite DB
+    Fetches an artist's releases URI from our SQLite DB
 
     :param artist_id: number representing the artist id in the discogs API
     """
@@ -132,7 +132,7 @@ async def get_artist_release_uri(band_details: int) -> str:
 
 async def get_artist_releases(releases_uri: str, headers:str) -> str:
     """
-    Fetches an artist's release information from the discogs API
+    Fetches an artist's releases information from the discogs API
 
     :param releases_uri: url of the resource at the Discogs end.
     :return: discogs API json representing a single artist
@@ -146,10 +146,10 @@ async def get_artist_releases(releases_uri: str, headers:str) -> str:
 
 async def create_release(release: str, artist_external_id: int) -> str:
     """
-    Checks whether or not asingle release has record already existing in our SQLite DB
+    Checks whether or not asingle releases has record already existing in our SQLite DB
     If it doesnt, it creates the relevant record.
 
-    :param release: json of single artist's release details from the discogs API
+    :param release: json of single artist's releases details from the discogs API
     """
     title = release["title"]
     year = release["year"]
@@ -174,7 +174,7 @@ async def create_release(release: str, artist_external_id: int) -> str:
                         """
             )
             artist_internal_id = await get_internal_artist_id.fetchone()
-            # crete the record for the release
+            # crete the record for the releases
             await db.execute(
                 """
                 INSERT INTO releases (title,year,link,external_id,artist_external_id,artist_id)
@@ -194,7 +194,7 @@ async def create_release(release: str, artist_external_id: int) -> str:
 
 async def main() -> None:
     """
-    Fetches the details for the band 'Circuit Breaker' from the Discogs.com API and their release history.
+    Fetches the details for the band 'Circuit Breaker' from the Discogs.com API and their releases history.
     Pushes the data into a SQLite DB.
     """
     DISCOGS_ARTIST_ID = get_discogs_artist_id()
