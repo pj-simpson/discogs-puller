@@ -2,7 +2,8 @@ import asyncio
 import aiohttp
 import aiosqlite
 
-from get_env_variables import get_discogs_token,get_discogs_artist_id
+from get_env_variables import get_discogs_token, get_discogs_artist_id
+
 
 async def create_artist_table() -> None:
     """
@@ -31,6 +32,40 @@ async def create_artist_table() -> None:
             """
             )
             await db.commit()
+            # nasty way to deal with a dependancy.. TODO refactor!
+            await create_artist_image_table()
+
+async def create_artist_image_table() -> None:
+    """
+    Checks to see whether or not the Artist image table exists in the SQLiteDB.
+    Creates if it doesn't
+    """
+    async with aiosqlite.connect("bands.db") as db:
+        check = await db.execute(
+            """
+            SELECT count(name) FROM sqlite_master 
+            WHERE type='table' 
+            AND name='artist_images'
+            """
+        )
+        table_exists = await check.fetchone()
+        if table_exists[0] == 0:
+            await db.execute(
+                """
+                CREATE TABLE artist_images (
+                id INTEGER PRIMARY KEY,
+                width TEXT NOT NULL,
+                height TEXT NOT NULL,
+                uri TEXT NOT NULL,
+                artist_id INTEGER NOT NULL,
+                artist_external_id INTEGER NOT NULL,
+                
+                FOREIGN KEY (artist_external_id) REFERENCES artist (external_id),
+                FOREIGN KEY (artist_id) REFERENCES artist (id)
+            );
+            """
+            )
+            await db.commit()
 
 
 async def get_artist_details(artist_id: int, headers) -> str:
@@ -41,7 +76,9 @@ async def get_artist_details(artist_id: int, headers) -> str:
     :return: discogs API json representing a single artist
     """
     async with aiohttp.ClientSession() as session:
-        async with session.get(f"https://api.discogs.com/artists/{artist_id}",headers=headers) as resp:
+        async with session.get(
+            f"https://api.discogs.com/artists/{artist_id}", headers=headers
+        ) as resp:
             result = await resp.json(content_type=None)
             return result
 
@@ -110,6 +147,47 @@ async def create_releases_table():
             """
             )
             await db.commit()
+            # nasty way to deal with a dependancy.. TODO refactor!
+            await create_releases_image_table()
+
+
+async def create_releases_image_table() -> None:
+    """
+    Checks to see whether or not the Release image table exists in the SQLiteDB.
+    Creates if it doesn't
+    """
+    async with aiosqlite.connect("bands.db") as db:
+        check = await db.execute(
+            """
+            SELECT count(name) FROM sqlite_master 
+            WHERE type='table' 
+            AND name='release_images'
+            """
+        )
+        table_exists = await check.fetchone()
+        if table_exists[0] == 0:
+            await db.execute(
+                """
+                CREATE TABLE release_images (
+                id INTEGER PRIMARY KEY,
+                width TEXT NOT NULL,
+                height TEXT NOT NULL,
+                uri TEXT NOT NULL,
+                release_id INTEGER NOT NULL,
+                artist_id INTEGER NOT NULL,
+                artist_external_id INTEGER NOT NULL,
+
+                FOREIGN KEY (release_id) REFERENCES release (id),
+                FOREIGN KEY (artist_external_id) REFERENCES artist (external_id),
+                FOREIGN KEY (artist_id) REFERENCES artist (id)
+            );
+            """
+            )
+            await db.commit()
+
+
+
+
 
 
 async def get_artist_release_uri(band_details: int) -> str:
@@ -120,7 +198,7 @@ async def get_artist_release_uri(band_details: int) -> str:
     """
     async with aiosqlite.connect("bands.db") as db:
         async with db.execute(
-                f"""
+            f"""
             SELECT releases_uri FROM artist 
             WHERE external_id = {band_details}
             """
@@ -130,7 +208,7 @@ async def get_artist_release_uri(band_details: int) -> str:
             return releases_uri
 
 
-async def get_artist_releases(releases_uri: str, headers:str) -> str:
+async def get_artist_releases(releases_uri: str, headers: str) -> str:
     """
     Fetches an artist's releases information from the discogs API
 
@@ -198,16 +276,16 @@ async def main() -> None:
     Pushes the data into a SQLite DB.
     """
     DISCOGS_ARTIST_ID = get_discogs_artist_id()
-    HEADERS =  {
-    'Authorization:': f' Discogs token={get_discogs_token()}'
-}
+    HEADERS = {"Authorization:": f" Discogs token={get_discogs_token()}"}
 
     await create_artist_table()
+    await create_artist_image_table()
     artist_details = await get_artist_details(DISCOGS_ARTIST_ID, headers=HEADERS)
     await create_artist(artist_details)
     await create_releases_table()
+    await create_releases_image_table()
     artist_release_uri = await get_artist_release_uri(DISCOGS_ARTIST_ID)
-    artist_releases = await get_artist_releases(artist_release_uri,headers=HEADERS)
+    artist_releases = await get_artist_releases(artist_release_uri, headers=HEADERS)
 
     # This should be where most of the 'gains' from concurrency happen.
     tasks = []

@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 
 from .model_helpers import JsonMixin, Base
 
+
 class Releases(Base, JsonMixin):
     __tablename__ = "releases"
 

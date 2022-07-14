@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 
 from .model_helpers import JsonMixin, Base
 
+
 class Artist(Base, JsonMixin):
     __tablename__ = "artist"
 

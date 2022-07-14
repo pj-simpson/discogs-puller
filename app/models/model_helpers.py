@@ -2,6 +2,7 @@ from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
+
 class JsonMixin(object):
     def resp_for_json(self):
         resp_dict = self.__dict__.copy()
