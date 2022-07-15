@@ -1,5 +1,9 @@
 {% extends "_base.html" %}
 
 {% block content %}
-    <p>{{ releases }}</p>
+    <ul>
+    {% for release in releases %}
+        <li><a href="/releases/{{release.id}}">{{release.title}}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}

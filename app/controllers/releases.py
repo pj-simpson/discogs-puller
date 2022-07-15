@@ -4,7 +4,7 @@ from starlite.controller import Controller
 from starlite.handlers import get
 from starlite import Template, Provide
 
-from ..dal.releases import ReleaseDAL
+from app.dal.releases import ReleaseDAL
 
 
 class ReleasesController(Controller):

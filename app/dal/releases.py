@@ -1,7 +1,7 @@
 from .base import BaseDAL
 from sqlalchemy.future import select
 
-from ..models.releases import Releases
+from app.models.releases import Releases
 
 
 class ReleaseDAL(BaseDAL):

@@ -1,8 +1,8 @@
-from starlite import Starlite, MediaType, TemplateConfig
-from .controllers.artists import ArtistController
-from .controllers.home import HomeController
-from .controllers.releases import ReleasesController
-from .health_check import health_check
+from starlite import Starlite, TemplateConfig
+from app.controllers.artists import ArtistController
+from app.controllers.home import HomeController
+from app.controllers.releases import ReleasesController
+from app.health_check import health_check
 from starlite.template.jinja import JinjaTemplateEngine
 import os
 

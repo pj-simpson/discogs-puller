@@ -1,6 +1,22 @@
 {% extends "_base.html" %}
 
 {% block content %}
-    <p>{{ artist }}</p>
+<!--    display the first image as the main image-->
+    {% set first_image = images[0] %}
+    <a href="#" class="thumbnail">
+        <img src={{ first_image['uri'] }}>
+    </a>
+
+    <h1>{{ artist.name[:-3] }}</h1>
+    <p>{{ artist.biog }}</p>
+
+
+    {% set remaining_images = images[1:] %}
+    {% for image in remaining_images %}
+        <a href="#" class="thumbnail">
+            <img src={{ image['uri'] }}>
+        </a>
+    {% endfor %}
+
 {% endblock %}
 

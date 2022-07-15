@@ -1,5 +1,15 @@
 {% extends "_base.html" %}
 
 {% block content %}
-    <p>{{ release }}</p>
+    <div class="media-object">
+      <div class="media-object-section">
+        <div class="thumbnail">
+          <img src="assets/img/media-object/avatar-1.jpg">
+        </div>
+      </div>
+      <div class="media-object-section">
+        <h4>{{release.title}}</h4>
+        <p>{{release.year}}</p>
+      </div>
+    </div>
 {% endblock %}
