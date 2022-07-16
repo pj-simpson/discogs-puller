@@ -4,20 +4,23 @@ from starlite.controller import Controller
 from starlite.handlers import get
 from starlite import Template, Provide
 
-from app.dal.artists import ArtistDAL
+from app.dal.artists import get_artist_context_data, get_artist_release_list_context_data
 
 
 class ArtistController(Controller):
     path = "/artist"
-    dependencies = {"artist_dal": Provide(ArtistDAL)}
+    dependencies = {
+        "get_artist_context_data": Provide(get_artist_context_data),
+        "get_artist_release_list_context_data": Provide(get_artist_release_list_context_data),
+
+    }
 
     @get(path="/{artist_id:int}")
-    async def artist_detail(self, artist_dal: Any, artist_id: int) -> Template:
-        artist = await artist_dal.get_single_artist(artist_id)
-        images = await artist_dal.get_artist_images(artist_id)
-        return Template(name="artist/artist.html", context={"artist": artist,"images":images})
+    async def artist_detail(self, get_artist_context_data: Any, artist_id: int) -> Template:
+        artist = get_artist_context_data
+        return Template(name="artist/artist.html", context={"artist": artist})
 
     @get(path="/{artist_id:int}/releases")
-    async def artist_release_list(self, artist_dal: Any, artist_id: int=1) -> Template:
-        releases = await artist_dal.get_artist_release_list(artist_id)
+    async def artist_release_list(self, get_artist_release_list_context_data: Any, artist_id:int) -> Template:
+        releases = get_artist_release_list_context_data
         return Template(name="artist/release_list.html", context={"releases": releases})

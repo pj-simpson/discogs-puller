@@ -1,7 +1,5 @@
 import asyncio
-import typing
 
-import aiohttp
 import aiosqlite
 
 from db_table_creation import create_artist_table, create_releases_table
