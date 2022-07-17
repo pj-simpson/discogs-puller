@@ -64,6 +64,7 @@ async def create_artist_image_table() -> None:
             )
             await db.commit()
 
+
 async def create_releases_table():
     """
     Checks to see whether or not the Releases table exists in the SQLiteDB.

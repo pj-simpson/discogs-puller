@@ -14,6 +14,7 @@ class Releases(Base, JsonMixin):
     artist_external_id = Column(Integer, ForeignKey("artist.external_id"))
     artist_id = Column(Integer, ForeignKey("artist.id"))
 
+
 class ReleaseImages(Base, JsonMixin):
     __tablename__ = "release_images"
 

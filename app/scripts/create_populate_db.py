@@ -7,6 +7,7 @@ from db_table_population import create_artist, create_release
 from discogs_api_fetch import get_artist_details, get_artist_releases
 from get_env_variables import get_discogs_token, get_discogs_artist_id
 
+
 async def get_artist_release_uri(band_details: int) -> str:
     """
     Fetches an artist's releases URI from our SQLite DB
@@ -24,14 +25,14 @@ async def get_artist_release_uri(band_details: int) -> str:
             releases_uri = row[0]
             return releases_uri
 
+
 async def main() -> None:
     """
     Fetches the details for the band 'Circuit Breaker' from the Discogs.com API and their releases history.
     Pushes the data into a SQLite DB.
     """
     DISCOGS_ARTIST_ID = get_discogs_artist_id()
-    HEADERS = {"Authorization" : f"Discogs token={get_discogs_token()}"}
-
+    HEADERS = {"Authorization": f"Discogs token={get_discogs_token()}"}
 
     await create_artist_table()
     artist_details = await get_artist_details(DISCOGS_ARTIST_ID, headers=HEADERS)

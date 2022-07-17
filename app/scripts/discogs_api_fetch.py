@@ -18,6 +18,7 @@ async def get_artist_details(artist_id: int, headers) -> str:
             result = await resp.json(content_type=None)
             return result
 
+
 async def get_artist_releases(releases_uri: str, headers: typing.Dict) -> str:
     """
     Fetches an artist's releases information from the discogs API

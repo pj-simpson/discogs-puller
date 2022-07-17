@@ -33,6 +33,7 @@ async def create_artist(band_details: str) -> None:
             await db.commit()
             await create_artist_images(band_details)
 
+
 async def create_artist_images(band_details: str) -> None:
     """
     Creates the relevant records for artist images
@@ -52,9 +53,10 @@ async def create_artist_images(band_details: str) -> None:
                 VALUES(?,?,?,?,?);
                 """,
                 # TODO bad hard coding artist unique identifier
-                (image['width'],image['height'],image['uri'],1,band_details["id"]),
+                (image["width"], image["height"], image["uri"], 1, band_details["id"]),
             )
             await db.commit()
+
 
 async def create_release(release: str, artist_external_id: int) -> str:
     """
@@ -105,6 +107,7 @@ async def create_release(release: str, artist_external_id: int) -> str:
             await db.commit()
             # await create_release_images(release,artist_external_id)
 
+
 async def create_release_images(release: str, artist_external_id: int) -> None:
     """
     Creates the relevant records for a releases images
@@ -124,6 +127,6 @@ async def create_release_images(release: str, artist_external_id: int) -> None:
                 VALUES(?,?,?,?,?);
                 """,
                 # TODO bad hard coding artist unique identifier
-                (image['width'],image['height'],image['uri'],1,artist_external_id),
+                (image["width"], image["height"], image["uri"], 1, artist_external_id),
             )
             await db.commit()
