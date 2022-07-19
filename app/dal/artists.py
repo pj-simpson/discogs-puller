@@ -165,7 +165,7 @@ class ArtistDataCreator:
         return release_list
 
 
-async def get_artist_context_data(artist_id: int) -> typing.Dict:
+async def artist(artist_id: int) -> typing.Dict:
     """
     Dependancy function for the controller to provide the context data upwards.
     """
@@ -174,7 +174,7 @@ async def get_artist_context_data(artist_id: int) -> typing.Dict:
     return artist_data
 
 
-async def get_artist_release_list_context_data(artist_id: int) -> typing.List:
+async def artist_release_list(artist_id: int) -> typing.List:
     """
     Dependancy function for the controller to provide the context data upwards.
     """

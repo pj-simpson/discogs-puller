@@ -41,7 +41,7 @@ class ReleaseDataCreator:
         return release
 
 
-async def get_release_context_data(release_id: int) -> typing.Dict:
+async def release(release_id: int) -> typing.Dict:
     release_data_creator = ReleaseDataCreator(release_id)
     single_release = await release_data_creator.produce_single_release_data()
     return single_release

@@ -115,5 +115,8 @@ media/
 # !**/migrations/__init__.py
 .idea/**
 
-#Might occasionally need to run this to remove PyCharm stuff
-#git rm --cached -r .idea
+# Might occasionally need to run this to remove PyCharm stuff
+# git rm --cached -r .idea
+
+# Cursed fixtures file
+__old_fixtures_to_delete.py

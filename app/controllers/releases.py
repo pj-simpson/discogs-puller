@@ -4,18 +4,18 @@ from starlite.controller import Controller
 from starlite.handlers import get
 from starlite import Template, Provide
 
-from app.dal.releases import get_release_context_data
+from app.dal.releases import release
 
 
 class ReleasesController(Controller):
     path = "/releases"
-    dependencies = {"get_release_context_data": Provide(get_release_context_data)}
+    dependencies = {"release_context_data": Provide(release)}
 
     @get(path="/{release_id:int}")
     async def release_detail(
-        self, get_release_context_data: Any, release_id: int
+        self, release_context_data: Any, release_id: int
     ) -> Template:
-        release = get_release_context_data
+        release = release_context_data
         return Template(
             name="releases/release_detail.html", context={"release": release}
         )
