@@ -10,7 +10,7 @@ import typing
 import os
 
 async_engine = create_async_engine(
-    os.environ.get("DB_URL", "sqlite+aiosqlite:///dal/bands.db")
+    os.environ.get("DB_URL", "sqlite+aiosqlite:///repository/bands.db")
 )
 async_session_factory = sessionmaker(
     async_engine, class_=AsyncSession, expire_on_commit=False

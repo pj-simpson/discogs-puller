@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-# check if we have a bands database file in the app dal folder
+# check if we have a bands database file in the app repository folder
 # if we do not, create one in the current directory
 DB_FILE=app/dal/bands.db
 if test -f "$DB_FILE"; then
@@ -14,7 +14,7 @@ else
 fi
 
 # check if we have a bands database file in the current directory
-# if we do , move it to the app's dal folder
+# if we do , move it to the app's repository folder
 DB_FILE_TO_MOVE=bands.db
 if test -f "$DB_FILE_TO_MOVE"; then
   mv bands.db app/dal/bands.db

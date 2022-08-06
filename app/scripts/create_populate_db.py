@@ -41,7 +41,6 @@ async def main() -> None:
     artist_release_uri = await get_artist_release_uri(DISCOGS_ARTIST_ID)
     artist_releases = await get_artist_releases(artist_release_uri, headers=HEADERS)
 
-    # This should be where most of the 'gains' from concurrency happen.
     tasks = []
     for release in artist_releases:
         tasks.append(create_release(release, DISCOGS_ARTIST_ID))

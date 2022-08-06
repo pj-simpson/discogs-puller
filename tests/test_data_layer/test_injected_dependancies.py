@@ -1,13 +1,13 @@
 import pytest
 
-from app.dal.artists import ArtistDataCreator, artist, artist_release_list
-from app.dal.releases import ReleaseDataCreator, release
+from app.repository.artists import ArtistRepository, artist, artist_release_list
+from app.repository.releases import ReleaseDataRepository, release
 
 
 @pytest.mark.asyncio
 async def test_get_artist_context_data(monkeypatch, artist_factory):
 
-    monkeypatch.setattr(ArtistDataCreator, "produce_artist_data", artist_factory)
+    monkeypatch.setattr(ArtistRepository, "get_artist_data", artist_factory)
     artist_context_data = await artist(artist_id=1)
     assert artist_context_data["name"] == "Rock Music Band"
 
@@ -18,8 +18,8 @@ async def test_get_artist_release_list_context_data(
 ):
 
     monkeypatch.setattr(
-        ArtistDataCreator,
-        "produce_artist_release_list_data",
+        ArtistRepository,
+        "get_artist_release_list_data",
         artist_releases_factory,
     )
     artist_release_list_context_data = await artist_release_list(artist_id=1)
@@ -39,7 +39,7 @@ async def test_get_artist_release_list_context_data(
 async def test_get_release_context_data(monkeypatch, single_release_factory):
 
     monkeypatch.setattr(
-        ReleaseDataCreator, "produce_single_release_data", single_release_factory
+        ReleaseDataRepository, "get_single_release_data", single_release_factory
     )
     single_release_context_data = await release(release_id=1)
     single_release = single_release_detail = {

@@ -1,8 +1,8 @@
 from starlette.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 import pytest
 
-from app.dal import releases
-from app.dal import artists
+from app.repository import releases
+from app.repository import artists
 
 
 class TestHttpRouting:

@@ -4,7 +4,7 @@ from starlite.controller import Controller
 from starlite.handlers import get
 from starlite import Template, Provide
 
-from app.dal.artists import (
+from app.repository.artists import (
     artist,
     artist_release_list,
 )

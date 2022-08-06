@@ -1,12 +1,6 @@
-from .base import BaseDAL
-from sqlalchemy.future import select
-
-
 import typing
 
-from app.models.artists import Artist, ArtistImage
-from app.models.releases import Releases
-
+from app.database.base import BaseDAL
 
 class ArtistDAL(BaseDAL):
     async def get_single_artist(self, artist_id: int) -> typing.Dict:
@@ -133,51 +127,3 @@ class ArtistDAL(BaseDAL):
         #     )
         #     artist_images_list = await self._build_object_list_from_result(result, "ArtistImage")
         #     return artist_images_list
-
-
-class ArtistDataCreator:
-    def __init__(self, artist_id: int) -> None:
-        self.artist_id = artist_id
-
-    async def _get_artist_dict(self) -> typing.Dict:
-        dal = ArtistDAL()
-        single_artist_dict = await dal.get_single_artist(self.artist_id)
-        return single_artist_dict
-
-    async def _get_artist_images_list(self) -> typing.Dict:
-        dal = ArtistDAL()
-        single_artist_images = await dal.get_artist_images(self.artist_id)
-        return single_artist_images
-
-    async def _get_artist_release_list(self) -> typing.List:
-        dal = ArtistDAL()
-        artist_release_list = await dal.get_artist_release_list(self.artist_id)
-        return artist_release_list
-
-    async def produce_artist_data(self) -> typing.Dict:
-        artist = await self._get_artist_dict()
-        images = await self._get_artist_images_list()
-        artist["images"] = images
-        return artist
-
-    async def produce_artist_release_list_data(self) -> typing.List:
-        release_list = await self._get_artist_release_list()
-        return release_list
-
-
-async def artist(artist_id: int) -> typing.Dict:
-    """
-    Dependancy function for the controller to provide the context data upwards.
-    """
-    artist_data_creator = ArtistDataCreator(artist_id)
-    artist_data = await artist_data_creator.produce_artist_data()
-    return artist_data
-
-
-async def artist_release_list(artist_id: int) -> typing.List:
-    """
-    Dependancy function for the controller to provide the context data upwards.
-    """
-    artist_data_creator = ArtistDataCreator(artist_id)
-    artist_release_list = await artist_data_creator.produce_artist_release_list_data()
-    return artist_release_list
