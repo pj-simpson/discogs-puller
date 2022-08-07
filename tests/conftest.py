@@ -1,4 +1,5 @@
 import pytest
+from sqlalchemy.engine import ChunkedIteratorResult
 
 from starlite.testing import TestClient
 
@@ -10,7 +11,7 @@ def test_client() -> TestClient:
     return TestClient(app=app)
 
 
-@pytest.fixture(name="artist_factory",scope="session")
+@pytest.fixture(name="artist_factory", scope="session")
 def artist_json_factory(*args, **kwargs):
     async def _produce_artist_json(*args, **kwargs):
         artist_json = {
@@ -43,7 +44,7 @@ def artist_json_factory(*args, **kwargs):
     return _produce_artist_json
 
 
-@pytest.fixture(name="artist_releases_factory",scope="session")
+@pytest.fixture(name="artist_releases_factory", scope="session")
 def artist_release_list_factory(*args, **kwargs):
     async def _produce_artist_release_list(*args, **kwargs):
         artist_release_list = [
@@ -80,7 +81,7 @@ def artist_release_list_factory(*args, **kwargs):
     return _produce_artist_release_list
 
 
-@pytest.fixture(name="single_release_factory",scope="session")
+@pytest.fixture(name="single_release_factory", scope="session")
 def single_release_detail_factory(*args, **kwargs):
     async def _produce_single_release_detail(*args, **kwargs):
         single_release_detail = {
@@ -98,7 +99,7 @@ def single_release_detail_factory(*args, **kwargs):
     return _produce_single_release_detail
 
 
-@pytest.fixture(name="artist_images_factory",scope="session")
+@pytest.fixture(name="artist_images_factory", scope="session")
 def artist_image_list_factory(*args, **kwargs):
     async def _produce_artist_image_list(*args, **kwargs):
         artist_image_list = [
@@ -122,3 +123,12 @@ def artist_image_list_factory(*args, **kwargs):
         return artist_image_list
 
     return _produce_artist_image_list
+
+
+@pytest.fixture(name="arbitrary_sqlalchemy_result_factory", scope="session")
+def arbitrary_sqlalchemy_result_factory(*args, **kwargs):
+    async def _produce_arbitrary_sqlalchemy_result_factory(*args, **kwargs):
+        release = type("ArbitraryResult", (), dict())
+        return release
+
+    return _produce_arbitrary_sqlalchemy_result_factory

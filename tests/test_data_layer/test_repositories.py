@@ -7,16 +7,13 @@ from app.repository.releases import ReleaseDataRepository, ReleaseDAL
 
 
 class TestArtistDataCreators:
-
     @pytest.mark.asyncio
     async def test_artist_repository_init(self):
         artist_data_creator = ArtistRepository()
         assert type(artist_data_creator.dal) == ArtistDAL
 
     @pytest.mark.asyncio
-    async def test_artist_repository_get_artist_data(
-        self, monkeypatch, artist_factory
-    ):
+    async def test_artist_repository_get_artist_data(self, monkeypatch, artist_factory):
 
         monkeypatch.setattr(ArtistRepository, "get_artist_data", artist_factory)
         artist_data_creator = ArtistRepository()
@@ -49,9 +46,7 @@ class TestArtistDataCreators:
         assert artist_release_list_data[1] == second_album
 
 
-
 class TestReleaseDataCreators:
-
     @pytest.mark.asyncio
     async def test_release_data_repository_init(self):
         release_data_creator = ReleaseDataRepository()
@@ -66,7 +61,9 @@ class TestReleaseDataCreators:
             ReleaseDataRepository, "get_single_release_data", single_release_factory
         )
         release_data_creator = ReleaseDataRepository()
-        single_release_data = await release_data_creator.get_single_release_data(release_id=1)
+        single_release_data = await release_data_creator.get_single_release_data(
+            release_id=1
+        )
         single_release = {
             "year": 2022,
             "external_id": 5364894,

@@ -5,7 +5,7 @@ set -o nounset
 
 # check if we have a bands database file in the app repository folder
 # if we do not, create one in the current directory
-DB_FILE=app/dal/bands.db
+DB_FILE=app/database/bands.db
 if test -f "$DB_FILE"; then
   echo "$DB_FILE exists."
 else
@@ -17,7 +17,7 @@ fi
 # if we do , move it to the app's repository folder
 DB_FILE_TO_MOVE=bands.db
 if test -f "$DB_FILE_TO_MOVE"; then
-  mv bands.db app/dal/bands.db
+  mv bands.db app/database/bands.db
 fi
 
 # run the ASGI server
