@@ -1,4 +1,5 @@
 import pytest
+import os
 from sqlalchemy.engine import ChunkedIteratorResult
 
 from starlite.testing import TestClient
@@ -132,3 +133,16 @@ def arbitrary_sqlalchemy_result_factory(*args, **kwargs):
         return release
 
     return _produce_arbitrary_sqlalchemy_result_factory
+
+
+@pytest.fixture()
+def set_up_temporary_database(tmp_path):
+    os.system("cat tests/test_data_layer/backup.sql | sqlite3 test.db")
+    os.system(f"mv test.db {tmp_path}")
+    return tmp_path / "test.db"
+
+
+@pytest.fixture()
+def get_temporary_db_path_string(set_up_temporary_database):
+    full_path_to_test_file = set_up_temporary_database
+    return str(full_path_to_test_file)
