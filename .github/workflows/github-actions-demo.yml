@@ -23,3 +23,11 @@ jobs:
       - name: Testing
         run: |
           pytest
+
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
