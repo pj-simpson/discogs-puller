@@ -42,7 +42,7 @@ async def test_get_release_context_data(monkeypatch, single_release_factory):
         ReleaseDataRepository, "get_single_release_data", single_release_factory
     )
     single_release_context_data = await release(release_id=1)
-    single_release = single_release_detail = {
+    single_release  = {
         "year": 2022,
         "external_id": 5364894,
         "title": "Fantastic Album",
