@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y python3.9 pytho
 RUN python3.9 -m venv /home/myuser/venv
 ENV PATH="/home/myuser/venv/bin:$PATH"
 
-COPY ../../requirements.txt .
-#need to upgrade to the latest pip for RUST stuff (pydantic uses it)
+COPY requirements.txt .
+
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir wheel
 RUN pip3 install --no-cache-dir -r requirements.txt
@@ -29,7 +29,7 @@ RUN mkdir /home/myuser/code
 WORKDIR /home/myuser/code
 COPY ../.. .
 
-COPY ./docker/local/start /start
+COPY start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
@@ -37,3 +37,4 @@ ENV PYTHONUNBUFFERED=1
 
 ENV VIRTUAL_ENV=/home/myuser/venv
 ENV PATH="/home/myuser/venv/bin:$PATH"
+ENTRYPOINT ["/start"]

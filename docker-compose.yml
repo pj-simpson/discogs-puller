@@ -5,7 +5,7 @@ services:
   starlite:
     build:
       context: .
-      dockerfile: docker/local/Dockerfile
+      dockerfile: Dockerfile
     command: /start
     volumes:
       - .:/home/myuser/code/

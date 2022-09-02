@@ -21,4 +21,4 @@ if test -f "$DB_FILE_TO_MOVE"; then
 fi
 
 # run the ASGI server
-uvicorn app.main:app --reload --host '0.0.0.0'
+uvicorn app.main:app --reload --host '0.0.0.0' --port '8000'

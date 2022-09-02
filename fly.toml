@@ -1,6 +1,6 @@
-# fly.toml file generated for dry-shape-1462 on 2022-08-28T18:24:48+01:00
+# fly.toml file generated for holy-tree-6108 on 2022-08-28T23:20:09+01:00
 
-app = "dry-shape-1462"
+app = "holy-tree-6108"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
