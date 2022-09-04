@@ -22,8 +22,7 @@ musical artist portfolio site.
    - The [example Starlite app](https://github.com/starlite-api/starlite-pg-redis-docker) 
    seems to use the repository pattern, so I did some
    reading up on that. There is an excellent introductory chapter in the book [Cosmic Python](https://www.cosmicpython.com/book/chapter_02_repository.html)
-     
- 
+   
  - Fly
    - The demise of Heroku's free tier means that everyone has their eye on the newest upcoming PAAS
      provider. I have heard lots of good things about [Fly.io](https://fly.io/) 

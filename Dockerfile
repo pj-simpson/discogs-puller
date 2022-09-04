@@ -1,6 +1,13 @@
 # https://luis-sena.medium.com/creating-the-perfect-python-dockerfile-51bdec41f1c8
 FROM ubuntu:20.04 AS builder-image
-
+ARG DISC_TOKEN
+ENV DISCOGS_PERSONAL_ACCESS_TOKEN=$DISC_TOKEN
+ARG ARTIST
+ENV DISCOGS_ARTIST_ID=$ARTIST
+ARG DEBUG
+ENV DEBUG=$DEBUG
+ARG DB
+ENV DB_URL=$DB
 # avoid stuck build due to user prompt
 ARG DEBIAN_FRONTEND=noninteractive
 

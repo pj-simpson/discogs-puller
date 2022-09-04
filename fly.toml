@@ -1,12 +1,12 @@
-# fly.toml file generated for holy-tree-6108 on 2022-08-28T23:20:09+01:00
+# fly.toml file generated for bitter-fire-9310 on 2022-09-04T22:23:31+01:00
 
-app = "holy-tree-6108"
+app = "bitter-fire-9310"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
 [build]
-  dockerfile = "docker/local/Dockerfile"
+  dockerfile = "Dockerfile"
 
 [env]
 
