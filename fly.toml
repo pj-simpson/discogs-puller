@@ -1,6 +1,6 @@
 # fly.toml file generated for bitter-fire-9310 on 2022-09-04T22:23:31+01:00
 
-app = "bitter-fire-9310"
+app = "app-name-1234"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
