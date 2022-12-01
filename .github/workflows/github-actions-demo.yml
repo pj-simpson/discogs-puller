@@ -29,15 +29,15 @@ jobs:
         run: |
           pytest
 
-#  deploy:
-#    name: Deploy app
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: superfly/flyctl-actions/setup-flyctl@master
-#      - run: |
-#          flyctl deploy --remote-only \
-#          --build-arg DISC_TOKEN=$DISCOGS_PERSONAL_ACCESS_TOKEN \
-#          --build-arg ARTIST=$DISCOGS_ARTIST_ID \
-#          --build-arg DEBUG=False \
-#          --build-arg DB=$DB_URL \
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: |
+          flyctl deploy --remote-only \
+          --build-arg DISC_TOKEN=$DISCOGS_PERSONAL_ACCESS_TOKEN \
+          --build-arg ARTIST=$DISCOGS_ARTIST_ID \
+          --build-arg DEBUG=False \
+          --build-arg DB=$DB_URL \
