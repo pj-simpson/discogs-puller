@@ -3,7 +3,7 @@
 {% block content %}
 <!--    display the first image as the main image-->
     {% set first_image = artist.images[0] %}
-    <a href="#" class="thumbnail">
+    <a href="#" class="img-thumbnail">
         <img src={{ first_image['uri'] }}>
     </a>
 
@@ -13,7 +13,7 @@
 
     {% set remaining_images = artist.images[1:] %}
     {% for image in remaining_images %}
-        <a href="#" class="thumbnail">
+        <a href="#" class="img-thumbnail">
             <img src={{ image['uri'] }}>
         </a>
     {% endfor %}

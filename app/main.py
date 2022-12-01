@@ -16,8 +16,8 @@ app = Starlite(
     template_config=TemplateConfig(
         directory="app/templates", engine=JinjaTemplateEngine
     ),
-    static_files_config=[
-        StaticFilesConfig(directories=["static"], path="/static"),
-    ],
+    # static_files_config=[
+    #     StaticFilesConfig(directories=["static"], path="/static"),
+    # ],
     debug=os.environ.get("DEBUG", False),
 )
